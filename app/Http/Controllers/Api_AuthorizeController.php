@@ -56,7 +56,6 @@ class Api_AuthorizeController extends Controller
 
         $messages = [
             'nama.required' => 'Tulis nama lengkap kamu',
-            'username.required' => 'Isi juga username nya ya',
             'email.required' => 'Masukan alamat email kamu',
             'email.email' => 'Coba cek ulang alamat email kamu, kayaknya salah',
             'password.min' => 'Password harus terdiri minimal 8 karakter',
@@ -64,7 +63,6 @@ class Api_AuthorizeController extends Controller
 
         $validator = Validator::make($request->all(), [
             'name' => 'required',
-            'username' => 'required',
             'email' => 'required|email',
             'password' => 'required|min:8',
         ], $messages);
@@ -82,17 +80,11 @@ class Api_AuthorizeController extends Controller
                     'message' => 'error',
                     'data' => 'Email sudah terdaftar'
                 ]);
-            }else if ($user->username == $request->username){
-                return response()->json([
-                    'message' => 'error',
-                    'data' => 'Username sudah terpakai'
-                ]);
             }
         }
 
         $signup = new User;
         $signup->name = $request->name;
-        $signup->username = $request->username;
         $signup->email = $request->email;
         $signup->password = bcrypt($request->password);
         $signup->is_active = 1;
