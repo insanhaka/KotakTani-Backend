@@ -7,9 +7,6 @@ use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Auth;
 use App\Models\User;
 use App\Models\Role;
-use App\Models\Google_User;
-use Carbon\Carbon;
-use DB;
 
 class Api_AuthorizeController extends Controller
 {

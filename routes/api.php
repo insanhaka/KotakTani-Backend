@@ -15,14 +15,15 @@ use App\Http\Controllers\Api_UserController;
 |
 */
 
-// Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-//     return $request->user();
-// });
+Route::group(['middleware' => 'checkHeader'], function() {
 
-Route::post('/postlogin', [Api_AuthorizeController::class, 'postlogin'])->name('api.login');
-Route::post('/postsignup', [Api_AuthorizeController::class, 'postsignup'])->name('api.signup');
+    // Api Authorization
+    Route::post('/postlogin', [Api_AuthorizeController::class, 'postlogin'])->name('api.login');
+    Route::post('/postsignup', [Api_AuthorizeController::class, 'postsignup'])->name('api.signup');
+    Route::post('/googlesignup', [Api_AuthorizeController::class, 'googlesignup'])->name('google.login');
 
-Route::post('/googlesignup', [Api_AuthorizeController::class, 'googlesignup'])->name('google.login');
+});
+
 
 Route::group(['middleware' => 'auth:api'], function () {
 
